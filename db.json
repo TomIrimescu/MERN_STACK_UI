@@ -24,5 +24,31 @@
       "rating": "5",
       "id": 8
     }
+  ],
+  "songs": [
+    {
+      "id": 8,
+      "title": "Love the way you lie",
+      "url": "https://www.imdb.com/title/tt1392190/",
+      "rating": "5"
+    },
+    {
+      "title": "Faded",
+      "url": "https://vimeo.com/379178741",
+      "rating": "6",
+      "id": 9
+    },
+    {
+      "title": "Animals",
+      "url": "https://vimeo.com/379178741",
+      "rating": "6",
+      "id": 10
+    },
+    {
+      "title": "Firestone",
+      "url": "https://vimeo.com/379178741",
+      "rating": "2",
+      "id": 11
+    }
   ]
 }
