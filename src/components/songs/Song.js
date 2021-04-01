@@ -1,7 +1,35 @@
+import { deleteSongAction } from '../../actions/songsActions';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import alert from 'sweetalert2';
 
 const Song = ({ song }) => {
+  const dispatch = useDispatch();
+
+  const handleDeleteSong = (id) => {
+    alert
+      .fire({
+        title: 'Delete Song',
+        text: 'The deleted song cannot be recovered!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#8e44ad',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Delete',
+      })
+      .then((result) => {
+        if (result.value) {
+          alert.fire(
+            'Removed',
+            'The song was successfully removed.',
+            'success'
+          );
+          dispatch(deleteSongAction(id));
+        }
+      });
+  };
+
   return (
     <tr>
       <td>{song.title}</td>
@@ -17,6 +45,7 @@ const Song = ({ song }) => {
 
         <button
           className="btn btn-outline-danger ml-2"
+          onClick={() => handleDeleteSong(song.id)}
         >
           Delete
         </button>

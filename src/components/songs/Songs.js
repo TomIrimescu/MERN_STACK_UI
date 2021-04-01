@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { fetchSongsAction } from '../../actions/songsActions';
 import Spinner from '../spinner/Spinner';
-import Song from '../songs/Song';
+import Song from './Song';
 
 const Songs = () => {
   const dispatch = useDispatch();
@@ -13,8 +13,11 @@ const Songs = () => {
     dispatch(fetchSongsAction());
   }, [dispatch]);
 
+  // @ts-ignore
   const loading = useSelector((state) => state.songs.loading);
+  // @ts-ignore
   const songs = useSelector((state) => state.songs.songs);
+  // @ts-ignore
   const error = useSelector((state) => state.songs.error);
 
   return (
@@ -30,22 +33,22 @@ const Songs = () => {
           Add Song
         </Link>
         <h2 className="text-center">Songs</h2>
+        <table className="table table-striped .table-hover shadow text-center">
+          <thead className="bg-info table-dark">
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Url</th>
+              <th scope="col">Rating</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {songs.map((song) => (
+              <Song key={song.id} song={song} />
+            ))}
+          </tbody>
+        </table>
       </div>
-      <table className="table table-striped .table-hover shadow text-center">
-        <thead className="bg-info table-dark">
-          <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Url</th>
-            <th scope="col">Rating</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {songs.map((song) => (
-            <Song key={song.id} song={song} />
-          ))}
-        </tbody>
-      </table>
     </>
   );
 };

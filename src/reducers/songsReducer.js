@@ -1,7 +1,10 @@
 import {
   FETCH_SONGS_START,
   FETCH_SONGS_SUCCESS,
-  FETCH_SONGS_ERROR
+  FETCH_SONGS_ERROR,
+  DELETE_SONG_START,
+  DELETE_SONG_SUCCESS,
+  DELETE_SONG_ERROR
 } from '../types';
 
 const initialState = {
@@ -34,6 +37,21 @@ const songsReducer = (state = initialState, action) => {
         error: true,
         song: {},
         songs: []
+      };
+    case DELETE_SONG_START:
+      return {
+        ...state,
+      };
+    case DELETE_SONG_SUCCESS:
+      return {
+        ...state,
+        error: false,
+        songs: state.songs.filter((song) => song.id !== action.payload),
+      };
+    case DELETE_SONG_ERROR:
+      return {
+        ...state,
+        error: true,
       };
     default:
       return state;

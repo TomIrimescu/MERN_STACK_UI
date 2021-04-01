@@ -34,6 +34,7 @@ export const fetchMoviesError = () => {
     type: FETCH_MOVIES_ERROR,
   };
 };
+
 export function fetchMoviesAction() {
   return (dispatch) => {
     dispatch(fetchMoviesStart());
@@ -77,7 +78,6 @@ export function deleteMovieAction(id) {
         dispatch(deleteMovieSuccess(id));
       })
       .catch((error) => {
-        // dispatch the delete song
         console.log(error);
         dispatch(deleteMovieError());
       });
