@@ -1,6 +1,9 @@
 import clienteAxios from '../config/axios';
 
 import {
+  ADD_SONG_ERROR,
+  ADD_SONG_START,
+  ADD_SONG_SUCCESS,
   DELETE_SONG_ERROR,
   DELETE_SONG_START,
   DELETE_SONG_SUCCESS,
@@ -77,4 +80,40 @@ export const deleteSongAction = (id) => {
         dispatch(deleteSongError());
       });
   };
+
+};
+
+export const addSongStart = () => {
+  return {
+    type: ADD_SONG_START,
+  };
+};
+
+export const addSongSuccess = (song) => {
+  return {
+    type: ADD_SONG_SUCCESS,
+    payload: song,
+  };
+};
+
+export const addSongError = () => {
+  return {
+    type: ADD_SONG_ERROR,
+  };
+};
+
+export const addSongAction = (song) => {
+  return (dispatch) => {
+    dispatch(addSongStart());
+    clienteAxios
+      .post('/songs', song)
+      .then((resp) => {
+        dispatch(addSongSuccess(song));
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch(addSongError());
+      });
+  };
+
 };
