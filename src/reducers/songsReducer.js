@@ -7,7 +7,10 @@ import {
   DELETE_SONG_ERROR,
   ADD_SONG_START,
   ADD_SONG_SUCCESS,
-  ADD_SONG_ERROR
+  ADD_SONG_ERROR,
+  GET_SONG_START,
+  GET_SONG_SUCCESS,
+  GET_SONG_ERROR
 } from '../types';
 
 const initialState = {
@@ -68,6 +71,22 @@ const songsReducer = (state = initialState, action) => {
         songs: [...state.songs, action.payload],
       };
     case ADD_SONG_ERROR:
+      return {
+        ...state,
+        error: true,
+      };
+    case GET_SONG_START:
+      return {
+        ...state,
+        error: null
+      };
+    case GET_SONG_SUCCESS:
+      return {
+        ...state,
+        error: false,
+        song: action.payload
+      };
+    case GET_SONG_ERROR:
       return {
         ...state,
         error: true,

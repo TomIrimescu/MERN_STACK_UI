@@ -141,11 +141,9 @@ export function getMovieSuccess(movie) {
 export function getMovieAction(id) {
   return (dispatch) => {
     dispatch(getMovieStart());
-
     clienteAxios
       .get(`/movies/${id}`)
       .then((res) => {
-        debugger;
         dispatch(getMovieSuccess(res.data));
       })
       .catch((error) => {

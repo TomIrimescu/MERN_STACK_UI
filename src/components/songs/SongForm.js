@@ -1,22 +1,42 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
+// @ts-nocheck
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addSongAction } from 'actions/songsActions';
+import { useForm } from 'react-hook-form';
 
-const SongForm = ({ history }) => {
-  const { register, handleSubmit, errors } = useForm();
+import {
+  addSongAction,
+  getSongAction
+
+} from 'actions/songsActions';
+
+const SongForm = ({ history, match }) => {
   const dispatch = useDispatch();
+  const { register, handleSubmit, errors } = useForm();
+
+  const [title, setTitle] = useState('New Song');
+
+  useEffect(() => {
+    if (match.params.id) {
+      setTitle('Edit Song');
+      dispatch(getSongAction(+match.params.id));
+    }
+  }, [dispatch, match.params.id]);
 
   const submitForm = (data) => {
-    dispatch(addSongAction(data));
-    history.push('/songs');
+    if (match.params.id) {
+      dispatch(getSongAction({ ...data, id: +match.params.id }));
+      history.push('/songs');
+    } else {
+      dispatch(addSongAction(data));
+      history.push('/songs');
+    }
   };
 
   return <div className="row justify-content-center mt-5">
     <div className="col-md-8">
       <div className="card">
         <div className="card-body">
-          <h2 className="text-center mb-4 font-weight-bold ">New Song</h2>
+          <h2 className="text-center mb-4 font-weight-bold ">{title}</h2>
           <form onSubmit={handleSubmit(submitForm)}>
             <div className="form-group">
               <label>Title</label>
@@ -77,3 +97,7 @@ const SongForm = ({ history }) => {
 };
 
 export default SongForm;
+function setTitle(arg0) {
+  throw new Error('Function not implemented.');
+}
+

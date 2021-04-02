@@ -9,7 +9,10 @@ import {
   DELETE_SONG_SUCCESS,
   FETCH_SONGS_ERROR,
   FETCH_SONGS_START,
-  FETCH_SONGS_SUCCESS
+  FETCH_SONGS_SUCCESS,
+  GET_SONG_ERROR,
+  GET_SONG_START,
+  GET_SONG_SUCCESS
 } from '../types';
 
 
@@ -115,5 +118,38 @@ export const addSongAction = (song) => {
         dispatch(addSongError());
       });
   };
+};
 
+export const getSongStart = () => {
+  return {
+    type: GET_SONG_START,
+  };
+};
+
+export const getSongSuccess = (song) => {
+  return {
+    type: GET_SONG_SUCCESS,
+    payload: song,
+  };
+};
+
+export const getSongError = () => {
+  return {
+    type: GET_SONG_ERROR,
+  };
+};
+
+export const getSongAction = (id) => {
+  return (dispatch) => {
+    dispatch(getSongStart());
+    clienteAxios
+      .get(`/songs/${id}`)
+      .then((res) => {
+        dispatch(getSongSuccess(res.data));
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch(getSongError());
+      });
+  };
 };

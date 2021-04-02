@@ -20,6 +20,7 @@ function App() {
             <Route exact path="/movies/edit/:id" component={MovieForm} />
             <Route exact path="/movies/new" component={MovieForm} />
             <Route exact path="/songs" component={Songs} />
+            <Route exact path="/songs/edit/:id" component={SongForm} />
             <Route exact path="/songs/new" component={SongForm} />
           </Switch>
         </div>
