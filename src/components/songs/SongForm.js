@@ -1,9 +1,13 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
 
 const SongForm = () => {
-  const submitForm = (e) => {
-    console.log(e);
-    e.preventDefault();
+  const { register, handleSubmit, errors } = useForm();
+
+  const submitForm = (data) => {
+    console.log(data);
+
+    // dispatch action to create a new record
   };
 
   return <div className="row justify-content-center mt-5">
@@ -11,7 +15,7 @@ const SongForm = () => {
       <div className="card">
         <div className="card-body">
           <h2 className="text-center mb-4 font-weight-bold ">New Song</h2>
-          <form onSubmit={submitForm}>
+          <form onSubmit={handleSubmit(submitForm)}>
             <div className="form-group">
               <label>Title</label>
               <input
@@ -19,7 +23,13 @@ const SongForm = () => {
                 className="form-control  "
                 placeholder="Song Title"
                 name="title"
+                ref={register({ required: true })}
               />
+              {errors.title && (
+                <div className="font-weight-bold alert alert-danger text-center mt-4">
+                  A title is required
+                </div>
+              )}
             </div>
             <div className="form-group">
               <label>Url</label>
@@ -28,7 +38,13 @@ const SongForm = () => {
                 className="form-control  "
                 placeholder="Song URL"
                 name="url"
+                ref={register({ required: true })}
               />
+              {errors.url && (
+                <div className="font-weight-bold alert alert-danger text-center mt-4">
+                  A url is required
+                </div>
+              )}
             </div>
             <div className="form-group">
               <label>Rating</label>
@@ -37,7 +53,13 @@ const SongForm = () => {
                 className="form-control  "
                 placeholder="Song Rating"
                 name="rating"
+                ref={register({ required: true })}
               />
+              {errors.rating && (
+                <div className="font-weight-bold alert alert-danger text-center mt-4">
+                  A rating is required
+                </div>
+              )}
             </div>
             <button
               type="submit"
