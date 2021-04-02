@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -31,23 +32,22 @@ const Movies = () => {
           Add Movie
         </Link>
         <h2 className="text-center">Movies</h2>
+        <table className="table table-striped .table-hover shadow text-center">
+          <thead className="bg-info table-dark">
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Url</th>
+              <th scope="col">Rating</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {movies.map((movie) => (
+              <Movie key={movie.id} movie={movie} />
+            ))}
+          </tbody>
+        </table>
       </div>
-      {/* <h2 className="text-center my-5">Songs</h2> */}
-      <table className="table table-striped .table-hover shadow text-center">
-        <thead className="bg-info table-dark">
-          <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Url</th>
-            <th scope="col">Rating</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {movies.map((movie) => (
-            <Movie key={movie.id} movie={movie} />
-          ))}
-        </tbody>
-      </table>
     </>
   );
 };

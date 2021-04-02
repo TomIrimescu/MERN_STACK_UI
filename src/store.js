@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
@@ -10,9 +11,7 @@ const store = createStore(
     rootReducer,
     initialState,
     compose(applyMiddleware(...middleware),
-        // @ts-ignore
         window.__REDUX_DEVTOOLS_EXTENSION__ &&
-        // @ts-ignore
         window.__REDUX_DEVTOOLS_EXTENSION__()
     ));
 

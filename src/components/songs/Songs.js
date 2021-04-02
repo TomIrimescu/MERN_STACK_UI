@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -13,11 +14,8 @@ const Songs = () => {
     dispatch(fetchSongsAction());
   }, [dispatch]);
 
-  // @ts-ignore
   const loading = useSelector((state) => state.songs.loading);
-  // @ts-ignore
   const songs = useSelector((state) => state.songs.songs);
-  // @ts-ignore
   const error = useSelector((state) => state.songs.error);
 
   return (
