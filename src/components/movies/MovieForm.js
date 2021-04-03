@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 import {
+  addMovieAction,
   editMovieAction,
-  getMovieAction,
-  newMovieAction,
+  getMovieAction
 } from '../../actions/moviesActions';
 
 const MovieForm = ({ history, match }) => {
@@ -18,16 +18,16 @@ const MovieForm = ({ history, match }) => {
   useEffect(() => {
     if (match.params.id) {
       setTitle('Edit Movie');
-      dispatch(getMovieAction(+match.params.id));
+      dispatch(getMovieAction(match.params.id));
     }
   }, [dispatch, match.params.id]);
 
-  const submitNewMovie = (data) => {
+  const submitMovieForm = (data) => {
     if (match.params.id) {
-      dispatch(editMovieAction({ ...data, id: +match.params.id }));
+      dispatch(editMovieAction({ ...data, _id: match.params.id }));
       history.push('/movies');
     } else {
-      dispatch(newMovieAction(data));
+      dispatch(addMovieAction(data));
       history.push('/movies');
     }
   };
@@ -38,7 +38,7 @@ const MovieForm = ({ history, match }) => {
         <div className="card">
           <div className="card-body">
             <h2 className="text-center mb-4 font-weight-bold ">{title}</h2>
-            <form onSubmit={handleSubmit(submitNewMovie)}>
+            <form onSubmit={handleSubmit(submitMovieForm)}>
               <div className="form-group">
                 <label>Title</label>
                 <input
@@ -51,7 +51,7 @@ const MovieForm = ({ history, match }) => {
                 />
                 {errors.title && (
                   <div className="font-weight-bold alert alert-danger text-center mt-4">
-                    This field is required
+                    A title is required
                   </div>
                 )}
               </div>
@@ -67,7 +67,7 @@ const MovieForm = ({ history, match }) => {
                 />
                 {errors.url && (
                   <div className="font-weight-bold alert alert-danger text-center mt-4">
-                    This field is required
+                    A url is required
                   </div>
                 )}
               </div>
@@ -83,11 +83,10 @@ const MovieForm = ({ history, match }) => {
                 />
                 {errors.rating && (
                   <div className="font-weight-bold alert alert-danger text-center mt-4">
-                    This field is required
+                    A rating is required
                   </div>
                 )}
               </div>
-
               <button
                 type="submit"
                 className="btn btn-info rounded-pill font-weight-bold text-uppercase d-block w-100"
@@ -101,4 +100,5 @@ const MovieForm = ({ history, match }) => {
     </div>
   );
 };
+
 export default MovieForm;

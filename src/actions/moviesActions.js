@@ -1,20 +1,20 @@
 import clientAxios from '../config/axios';
 import {
+  ADD_MOVIE_ERROR,
+  ADD_MOVIE_START,
+  ADD_MOVIE_SUCCESS,
   DELETE_MOVIE_ERROR,
   DELETE_MOVIE_START,
   DELETE_MOVIE_SUCCESS,
+  EDIT_MOVIE_ERROR,
   EDIT_MOVIE_SUCCESS,
   EDIT_MOVIE_START,
-  EDIT_MOVIE_ERROR,
   FETCH_MOVIES_ERROR,
   FETCH_MOVIES_START,
   FETCH_MOVIES_SUCCESS,
   GET_MOVIE_ERROR,
   GET_MOVIE_START,
-  GET_MOVIE_SUCCESS,
-  NEW_MOVIE_ERROR,
-  NEW_MOVIE_START,
-  NEW_MOVIE_SUCCESS,
+  GET_MOVIE_SUCCESS
 } from '../types';
 
 export const fetchMoviesStart = () => {
@@ -36,10 +36,9 @@ export const fetchMoviesError = () => {
   };
 };
 
-export function fetchMoviesAction() {
+export const fetchMoviesAction = () => {
   return (dispatch) => {
     dispatch(fetchMoviesStart());
-
     clientAxios
       .get('/movies')
       .then((resp) => {
@@ -49,30 +48,29 @@ export function fetchMoviesAction() {
         dispatch(fetchMoviesError);
       });
   };
-}
+};
 
-export function deleteMovieStart() {
+export const deleteMovieStart = () => {
   return {
     type: DELETE_MOVIE_START,
   };
-}
+};
 
-export function deleteMovieSuccess(id) {
+export const deleteMovieSuccess = (id) => {
   return {
     type: DELETE_MOVIE_SUCCESS,
     payload: id,
   };
-}
+};
 
-export function deleteMovieError() {
+export const deleteMovieError = () => {
   return {
     type: DELETE_MOVIE_ERROR,
   };
-}
-export function deleteMovieAction(id) {
+};
+export const deleteMovieAction = (id) => {
   return (dispatch) => {
     dispatch(deleteMovieStart());
-
     clientAxios
       .delete(`/movies/${id}`)
       .then(() => {
@@ -83,63 +81,63 @@ export function deleteMovieAction(id) {
         dispatch(deleteMovieError());
       });
   };
-}
+};
 
-export function newMovieStart() {
+export const addMovieStart = () => {
   return {
-    type: NEW_MOVIE_START,
+    type: ADD_MOVIE_START,
   };
-}
+};
 
-export function newMovieError() {
+export const addMovieSuccess = (movie) => {
   return {
-    type: NEW_MOVIE_ERROR,
-  };
-}
-
-export function newMovieSuccess(movie) {
-  return {
-    type: NEW_MOVIE_SUCCESS,
+    type: ADD_MOVIE_SUCCESS,
     payload: movie,
   };
-}
+};
 
-export function newMovieAction(movie) {
+export const addMovieError = () => {
+  return {
+    type: ADD_MOVIE_ERROR,
+  };
+};
+
+export const addMovieAction = (movie) => {
   return (dispatch) => {
-    dispatch(newMovieStart());
-
+    dispatch(addMovieStart());
     clientAxios
       .post('/movies', movie)
       .then((res) => {
         console.log(res);
-        dispatch(newMovieSuccess(movie));
+        dispatch(addMovieSuccess(res.data));
       })
       .catch((error) => {
         console.error(error);
-        dispatch(newMovieError());
+        dispatch(addMovieError());
       });
   };
-}
-export function getMovieStart() {
+};
+
+export const getMovieStart = () => {
   return {
     type: GET_MOVIE_START,
   };
-}
+};
 
-export function getMovieError() {
-  return {
-    type: GET_MOVIE_ERROR,
-  };
-}
-
-export function getMovieSuccess(movie) {
+export const getMovieSuccess = (movie) => {
   return {
     type: GET_MOVIE_SUCCESS,
     payload: movie,
   };
-}
+};
 
-export function getMovieAction(id) {
+export const getMovieError = () => {
+  return {
+    type: GET_MOVIE_ERROR,
+  };
+};
+
+export const getMovieAction = (id) => {
   return (dispatch) => {
     dispatch(getMovieStart());
     clientAxios
@@ -152,31 +150,32 @@ export function getMovieAction(id) {
         dispatch(getMovieError());
       });
   };
-}
+};
 
-export function editMovieStart() {
+export const editMovieStart = () => {
   return {
     type: EDIT_MOVIE_START,
   };
-}
-export function editMovieError() {
-  return {
-    type: EDIT_MOVIE_ERROR,
-  };
-}
+};
 
-export function editMovieSuccess(movie) {
+export const editMovieSuccess = (movie) => {
   return {
     type: EDIT_MOVIE_SUCCESS,
     payload: movie,
   };
-}
+};
 
-export function editMovieAction(movie) {
+export const editMovieError = () => {
+  return {
+    type: EDIT_MOVIE_ERROR,
+  };
+};
+
+export const editMovieAction = (movie) => {
   return (dispatch) => {
     dispatch(editMovieStart());
     clientAxios
-      .put(`/movies/${movie.id}`, movie)
+      .put(`/movies/${movie._id}`, { title: movie.title, url: movie.url, rating: movie.rating })
       .then((res) => {
         dispatch(editMovieSuccess(res.data));
       })
@@ -185,4 +184,4 @@ export function editMovieAction(movie) {
         dispatch(editMovieError());
       });
   };
-}
+};

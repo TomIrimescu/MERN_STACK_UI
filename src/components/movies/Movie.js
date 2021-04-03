@@ -37,7 +37,7 @@ const Movie = ({ movie }) => {
       <td>{movie.rating}</td>
       <td className="acciones ">
         <Link
-          to={`/movies/edit/${movie.id}`}
+          to={`/movies/edit/${movie._id}`}
           className="btn btn-outline-info px-4"
         >
           Edit
@@ -45,7 +45,7 @@ const Movie = ({ movie }) => {
 
         <button
           className="btn btn-outline-danger ml-2"
-          onClick={() => handleDeleteMovie(movie.id)}
+          onClick={() => handleDeleteMovie(movie._id)}
         >
           Delete
         </button>

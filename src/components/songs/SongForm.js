@@ -5,8 +5,8 @@ import { useForm } from 'react-hook-form';
 
 import {
   addSongAction,
-  getSongAction,
-  editSongAction
+  editSongAction,
+  getSongAction
 } from 'actions/songsActions';
 
 const SongForm = ({ history, match }) => {
@@ -22,7 +22,7 @@ const SongForm = ({ history, match }) => {
     }
   }, [dispatch, match.params.id]);
 
-  const submitForm = (data) => {
+  const submitSongForm = (data) => {
     if (match.params.id) {
       dispatch(editSongAction({ ...data, _id: match.params.id }));
       history.push('/songs');
@@ -37,7 +37,7 @@ const SongForm = ({ history, match }) => {
       <div className="card">
         <div className="card-body">
           <h2 className="text-center mb-4 font-weight-bold ">{title}</h2>
-          <form onSubmit={handleSubmit(submitForm)}>
+          <form onSubmit={handleSubmit(submitSongForm)}>
             <div className="form-group">
               <label>Title</label>
               <input
@@ -60,9 +60,9 @@ const SongForm = ({ history, match }) => {
                 type="text"
                 className="form-control form-control-font"
                 placeholder="Song URL"
+                defaultValue={song.url}
                 name="url"
                 ref={register({ required: true })}
-                defaultValue={song.url}
               />
               {errors.url && (
                 <div className="font-weight-bold alert alert-danger text-center mt-4">
@@ -77,8 +77,8 @@ const SongForm = ({ history, match }) => {
                 className="form-control form-control-font"
                 placeholder="Song Rating"
                 name="rating"
-                ref={register({ required: true })}
                 defaultValue={song.rating}
+                ref={register({ required: true })}
               />
               {errors.rating && (
                 <div className="font-weight-bold alert alert-danger text-center mt-4">

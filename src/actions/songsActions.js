@@ -41,7 +41,6 @@ export const fetchSongsError = () => {
 export const fetchSongsAction = () => {
   return (dispatch) => {
     dispatch(fetchSongsStart());
-
     clientAxios
       .get('/songs')
       .then((resp) => {

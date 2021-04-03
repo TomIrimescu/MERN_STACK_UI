@@ -1,19 +1,19 @@
 import {
-  FETCH_SONGS_START,
-  FETCH_SONGS_SUCCESS,
-  FETCH_SONGS_ERROR,
-  DELETE_SONG_START,
-  DELETE_SONG_SUCCESS,
-  DELETE_SONG_ERROR,
   ADD_SONG_START,
   ADD_SONG_SUCCESS,
   ADD_SONG_ERROR,
-  GET_SONG_START,
-  GET_SONG_SUCCESS,
-  GET_SONG_ERROR,
+  DELETE_SONG_START,
+  DELETE_SONG_SUCCESS,
+  DELETE_SONG_ERROR,
   EDIT_SONG_START,
   EDIT_SONG_SUCCESS,
-  EDIT_SONG_ERROR
+  EDIT_SONG_ERROR,
+  FETCH_SONGS_START,
+  FETCH_SONGS_SUCCESS,
+  FETCH_SONGS_ERROR,
+  GET_SONG_START,
+  GET_SONG_SUCCESS,
+  GET_SONG_ERROR
 } from '../types';
 
 const initialState = {
@@ -25,6 +25,55 @@ const initialState = {
 
 const songsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case ADD_SONG_START:
+      return {
+        ...state,
+        error: null
+      };
+    case ADD_SONG_SUCCESS:
+      return {
+        ...state,
+        error: false,
+        songs: [...state.songs, action.payload],
+      };
+    case ADD_SONG_ERROR:
+      return {
+        ...state,
+        error: true,
+      };
+    case DELETE_SONG_START:
+      return {
+        ...state,
+      };
+    case DELETE_SONG_SUCCESS:
+      return {
+        ...state,
+        error: false,
+        songs: state.songs.filter((song) => song._id !== action.payload),
+      };
+    case DELETE_SONG_ERROR:
+      return {
+        ...state,
+        error: true,
+      };
+    case EDIT_SONG_START:
+      return {
+        ...state,
+        error: null
+      };
+    case EDIT_SONG_SUCCESS:
+      return {
+        ...state,
+        error: false,
+        songs: state.songs.map((song) =>
+          song._id === action.payload._id ? (song = action.payload) : song
+        )
+      };
+    case EDIT_SONG_ERROR:
+      return {
+        ...state,
+        error: true,
+      };
     case FETCH_SONGS_START:
       return {
         ...state,
@@ -47,37 +96,6 @@ const songsReducer = (state = initialState, action) => {
         song: {},
         songs: []
       };
-    case DELETE_SONG_START:
-      return {
-        ...state,
-      };
-    case DELETE_SONG_SUCCESS:
-      return {
-        ...state,
-        error: false,
-        songs: state.songs.filter((song) => song._id !== action.payload),
-      };
-    case DELETE_SONG_ERROR:
-      return {
-        ...state,
-        error: true,
-      };
-    case ADD_SONG_START:
-      return {
-        ...state,
-        error: null
-      };
-    case ADD_SONG_SUCCESS:
-      return {
-        ...state,
-        error: false,
-        songs: [...state.songs, action.payload],
-      };
-    case ADD_SONG_ERROR:
-      return {
-        ...state,
-        error: true,
-      };
     case GET_SONG_START:
       return {
         ...state,
@@ -90,24 +108,6 @@ const songsReducer = (state = initialState, action) => {
         song: action.payload
       };
     case GET_SONG_ERROR:
-      return {
-        ...state,
-        error: true,
-      };
-    case EDIT_SONG_START:
-      return {
-        ...state,
-        error: null
-      };
-    case EDIT_SONG_SUCCESS:
-      return {
-        ...state,
-        error: false,
-        songs: state.songs.map((song) =>
-          song._id === action.payload._id ? (song = action.payload) : song
-        )
-      };
-    case EDIT_SONG_ERROR:
       return {
         ...state,
         error: true,

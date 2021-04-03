@@ -1,8 +1,9 @@
-import { deleteSongAction } from '../../actions/songsActions';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import alert from 'sweetalert2';
+
+import { deleteSongAction } from '../../actions/songsActions';
 
 const Song = ({ song }) => {
   const dispatch = useDispatch();

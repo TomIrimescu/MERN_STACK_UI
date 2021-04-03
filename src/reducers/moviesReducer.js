@@ -1,19 +1,19 @@
 import {
-  FETCH_MOVIES_SUCCESS,
-  FETCH_MOVIES_ERROR,
-  FETCH_MOVIES_START,
+  ADD_MOVIE_START,
+  ADD_MOVIE_SUCCESS,
+  ADD_MOVIE_ERROR,
   DELETE_MOVIE_START,
   DELETE_MOVIE_SUCCESS,
   DELETE_MOVIE_ERROR,
   EDIT_MOVIE_ERROR,
   EDIT_MOVIE_START,
   EDIT_MOVIE_SUCCESS,
-  NEW_MOVIE_START,
-  NEW_MOVIE_SUCCESS,
-  NEW_MOVIE_ERROR,
+  FETCH_MOVIES_SUCCESS,
+  FETCH_MOVIES_ERROR,
+  FETCH_MOVIES_START,
   GET_MOVIE_ERROR,
   GET_MOVIE_SUCCESS,
-  GET_MOVIE_START,
+  GET_MOVIE_START
 } from '../types';
 
 const initialState = {
@@ -25,30 +25,22 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case FETCH_MOVIES_START:
+    case ADD_MOVIE_START:
       return {
         ...state,
-        loading: true,
-        movie: {},
+        error: null,
       };
-    case FETCH_MOVIES_SUCCESS:
+    case ADD_MOVIE_SUCCESS:
       return {
         ...state,
-        movies: action.payload,
-        loading: false,
         error: false,
-        movie: {},
+        movies: [...state.movies, action.payload],
       };
-
-    case FETCH_MOVIES_ERROR:
+    case ADD_MOVIE_ERROR:
       return {
         ...state,
-        movies: [],
-        loading: false,
         error: true,
-        movie: {},
       };
-
     case DELETE_MOVIE_START:
       return {
         ...state,
@@ -57,7 +49,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         error: false,
-        movies: state.movies.filter((movie) => movie.id !== action.payload),
+        movies: state.movies.filter((movie) => movie._id !== action.payload),
       };
     case DELETE_MOVIE_ERROR:
       return {
@@ -74,7 +66,7 @@ export default function (state = initialState, action) {
         ...state,
         error: false,
         movies: state.movies.map((movie) =>
-          movie.id === action.payload.id ? (movie = action.payload) : movie
+          movie._id === action.payload._id ? (movie = action.payload) : movie
         ),
       };
     case EDIT_MOVIE_ERROR:
@@ -82,21 +74,27 @@ export default function (state = initialState, action) {
         ...state,
         error: true,
       };
-    case NEW_MOVIE_START:
+    case FETCH_MOVIES_START:
       return {
         ...state,
-        error: null,
+        loading: true,
+        movie: {},
       };
-    case NEW_MOVIE_SUCCESS:
+    case FETCH_MOVIES_SUCCESS:
       return {
         ...state,
+        movies: action.payload,
+        loading: false,
         error: false,
-        movies: [...state.movies, action.payload],
+        movie: {},
       };
-    case NEW_MOVIE_ERROR:
+    case FETCH_MOVIES_ERROR:
       return {
         ...state,
+        movies: [],
+        loading: false,
         error: true,
+        movie: {},
       };
     case GET_MOVIE_START:
       return {
