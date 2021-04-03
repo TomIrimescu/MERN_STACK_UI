@@ -1,4 +1,4 @@
-import clienteAxios from '../config/axios';
+import clientAxios from '../config/axios';
 
 import {
   ADD_SONG_ERROR,
@@ -39,7 +39,7 @@ export const fetchSongsAction = () => {
   return (dispatch) => {
     dispatch(fetchSongsStart());
 
-    clienteAxios
+    clientAxios
       .get('/songs')
       .then((resp) => {
         console.log(resp);
@@ -73,7 +73,7 @@ export const deleteSongError = () => {
 export const deleteSongAction = (id) => {
   return (dispatch) => {
     dispatch(deleteSongStart());
-    clienteAxios
+    clientAxios
       .delete(`/songs/${id}`)
       .then((resp) => {
         dispatch(deleteSongSuccess(id));
@@ -108,7 +108,7 @@ export const addSongError = () => {
 export const addSongAction = (song) => {
   return (dispatch) => {
     dispatch(addSongStart());
-    clienteAxios
+    clientAxios
       .post('/songs', song)
       .then((resp) => {
         dispatch(addSongSuccess(song));
@@ -142,7 +142,7 @@ export const getSongError = () => {
 export const getSongAction = (id) => {
   return (dispatch) => {
     dispatch(getSongStart());
-    clienteAxios
+    clientAxios
       .get(`/songs/${id}`)
       .then((res) => {
         dispatch(getSongSuccess(res.data));

@@ -1,18 +1,18 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 import {
   addSongAction,
-  getSongAction
+  getSongAction,
 
 } from 'actions/songsActions';
 
 const SongForm = ({ history, match }) => {
   const dispatch = useDispatch();
   const { register, handleSubmit, errors } = useForm();
-
+  const song = useSelector((state) => state.songs.song);
   const [title, setTitle] = useState('New Song');
 
   useEffect(() => {
@@ -42,10 +42,11 @@ const SongForm = ({ history, match }) => {
               <label>Title</label>
               <input
                 type="text"
-                className="form-control  "
+                className="form-control form-control-font"
                 placeholder="Song Title"
                 name="title"
                 ref={register({ required: true })}
+                defaultValue={song.title}
               />
               {errors.title && (
                 <div className="font-weight-bold alert alert-danger text-center mt-4">
@@ -57,10 +58,11 @@ const SongForm = ({ history, match }) => {
               <label>Url</label>
               <input
                 type="text"
-                className="form-control  "
+                className="form-control form-control-font"
                 placeholder="Song URL"
                 name="url"
                 ref={register({ required: true })}
+                defaultValue={song.url}
               />
               {errors.url && (
                 <div className="font-weight-bold alert alert-danger text-center mt-4">
@@ -72,10 +74,11 @@ const SongForm = ({ history, match }) => {
               <label>Rating</label>
               <input
                 type="number"
-                className="form-control  "
+                className="form-control form-control-font"
                 placeholder="Song Rating"
                 name="rating"
                 ref={register({ required: true })}
+                defaultValue={song.rating}
               />
               {errors.rating && (
                 <div className="font-weight-bold alert alert-danger text-center mt-4">
@@ -97,7 +100,3 @@ const SongForm = ({ history, match }) => {
 };
 
 export default SongForm;
-function setTitle(arg0) {
-  throw new Error('Function not implemented.');
-}
-

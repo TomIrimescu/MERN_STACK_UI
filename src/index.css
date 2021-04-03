@@ -53,3 +53,7 @@ h1 a.text-light:hover {
   border-radius: 5px;
   color: rgb(78, 78, 78);
 }
+
+.form-control-font {
+  font-size: 1.0rem;
+}

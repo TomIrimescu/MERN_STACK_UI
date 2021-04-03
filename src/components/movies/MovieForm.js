@@ -43,7 +43,7 @@ const MovieForm = ({ history, match }) => {
                 <label>Title</label>
                 <input
                   type="text"
-                  className="form-control  "
+                  className="form-control form-control-font"
                   placeholder="Movie Title"
                   name="title"
                   ref={register({ required: true })}
@@ -59,7 +59,7 @@ const MovieForm = ({ history, match }) => {
                 <label>Url</label>
                 <input
                   type="text"
-                  className="form-control  "
+                  className="form-control form-control-font"
                   placeholder="Movie URL"
                   defaultValue={movie.url}
                   name="url"
@@ -75,7 +75,7 @@ const MovieForm = ({ history, match }) => {
                 <label>Rating</label>
                 <input
                   type="number"
-                  className="form-control  "
+                  className="form-control form-control-font"
                   placeholder="Movie Rating"
                   defaultValue={movie.rating}
                   name="rating"

@@ -1,4 +1,4 @@
-import clienteAxios from '../config/axios';
+import clientAxios from '../config/axios';
 import {
   DELETE_MOVIE_ERROR,
   DELETE_MOVIE_START,
@@ -39,7 +39,7 @@ export function fetchMoviesAction() {
   return (dispatch) => {
     dispatch(fetchMoviesStart());
 
-    clienteAxios
+    clientAxios
       .get('/movies')
       .then((resp) => {
         dispatch(fetchMoviesSuccess(resp.data));
@@ -72,7 +72,7 @@ export function deleteMovieAction(id) {
   return (dispatch) => {
     dispatch(deleteMovieStart());
 
-    clienteAxios
+    clientAxios
       .delete(`/movies/${id}`)
       .then(() => {
         dispatch(deleteMovieSuccess(id));
@@ -107,7 +107,7 @@ export function newMovieAction(movie) {
   return (dispatch) => {
     dispatch(newMovieStart());
 
-    clienteAxios
+    clientAxios
       .post('/movies', movie)
       .then((res) => {
         console.log(res);
@@ -141,7 +141,7 @@ export function getMovieSuccess(movie) {
 export function getMovieAction(id) {
   return (dispatch) => {
     dispatch(getMovieStart());
-    clienteAxios
+    clientAxios
       .get(`/movies/${id}`)
       .then((res) => {
         dispatch(getMovieSuccess(res.data));
@@ -175,7 +175,7 @@ export function editMovieAction(movie) {
   return (dispatch) => {
     dispatch(editMovieStart());
 
-    clienteAxios
+    clientAxios
       .put(`/movies/${movie.id}`, movie)
       .then((res) => {
         dispatch(editMovieSuccess(res.data));
