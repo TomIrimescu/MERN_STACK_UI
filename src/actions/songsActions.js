@@ -46,7 +46,7 @@ export const fetchSongsAction = () => {
       .get('/songs')
       .then((resp) => {
         console.log(resp);
-        dispatch(fetchSongsSuccess(resp.data));
+        dispatch(fetchSongsSuccess(resp.data.docs));
       })
       .catch((error) => {
         dispatch(fetchSongsError);
@@ -114,7 +114,7 @@ export const addSongAction = (song) => {
     clientAxios
       .post('/songs', song)
       .then((resp) => {
-        dispatch(addSongSuccess(song));
+        dispatch(addSongSuccess(resp.data));
       })
       .catch((error) => {
         console.log(error);
@@ -180,7 +180,7 @@ export const editSongAction = (song) => {
   return (dispatch) => {
     dispatch(editSongStart());
     clientAxios
-      .put(`/songs/${song.id}`, song)
+      .put(`/songs/${song._id}`, { title: song.title, url: song.url, rating: song.rating })
       .then((res) => {
         dispatch(editSongSuccess(res.data));
       })

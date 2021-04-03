@@ -18,13 +18,13 @@ const SongForm = ({ history, match }) => {
   useEffect(() => {
     if (match.params.id) {
       setTitle('Edit Song');
-      dispatch(getSongAction(+match.params.id));
+      dispatch(getSongAction(match.params.id));
     }
   }, [dispatch, match.params.id]);
 
   const submitForm = (data) => {
     if (match.params.id) {
-      dispatch(editSongAction({ ...data, id: +match.params.id }));
+      dispatch(editSongAction({ ...data, _id: match.params.id }));
       history.push('/songs');
     } else {
       dispatch(addSongAction(data));

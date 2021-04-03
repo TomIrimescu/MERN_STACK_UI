@@ -37,7 +37,7 @@ const Song = ({ song }) => {
       <td>{song.rating}</td>
       <td>
         <Link
-          to={`/songs/edit/${song.id}`}
+          to={`/songs/edit/${song._id}`}
           className="btn btn-outline-info px-4"
         >
           Edit
@@ -45,7 +45,7 @@ const Song = ({ song }) => {
 
         <button
           className="btn btn-outline-danger ml-2"
-          onClick={() => handleDeleteSong(song.id)}
+          onClick={() => handleDeleteSong(song._id)}
         >
           Delete
         </button>

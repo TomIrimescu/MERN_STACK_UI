@@ -43,7 +43,7 @@ export function fetchMoviesAction() {
     clientAxios
       .get('/movies')
       .then((resp) => {
-        dispatch(fetchMoviesSuccess(resp.data));
+        dispatch(fetchMoviesSuccess(resp.data.docs));
       })
       .catch((error) => {
         dispatch(fetchMoviesError);
