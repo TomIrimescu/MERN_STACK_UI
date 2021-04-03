@@ -10,7 +10,10 @@ import {
   ADD_SONG_ERROR,
   GET_SONG_START,
   GET_SONG_SUCCESS,
-  GET_SONG_ERROR
+  GET_SONG_ERROR,
+  EDIT_SONG_START,
+  EDIT_SONG_SUCCESS,
+  EDIT_SONG_ERROR
 } from '../types';
 
 const initialState = {
@@ -87,6 +90,24 @@ const songsReducer = (state = initialState, action) => {
         song: action.payload
       };
     case GET_SONG_ERROR:
+      return {
+        ...state,
+        error: true,
+      };
+    case EDIT_SONG_START:
+      return {
+        ...state,
+        error: null
+      };
+    case EDIT_SONG_SUCCESS:
+      return {
+        ...state,
+        error: false,
+        songs: state.songs.map((song) =>
+          song.id === action.payload.id ? (song = action.payload) : song
+        )
+      };
+    case EDIT_SONG_ERROR:
       return {
         ...state,
         error: true,

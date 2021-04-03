@@ -4,6 +4,8 @@ import {
   DELETE_MOVIE_START,
   DELETE_MOVIE_SUCCESS,
   EDIT_MOVIE_SUCCESS,
+  EDIT_MOVIE_START,
+  EDIT_MOVIE_ERROR,
   FETCH_MOVIES_ERROR,
   FETCH_MOVIES_START,
   FETCH_MOVIES_SUCCESS,
@@ -13,7 +15,6 @@ import {
   NEW_MOVIE_ERROR,
   NEW_MOVIE_START,
   NEW_MOVIE_SUCCESS,
-  EDIT_MOVIE_START,
 } from '../types';
 
 export const fetchMoviesStart = () => {
@@ -160,7 +161,7 @@ export function editMovieStart() {
 }
 export function editMovieError() {
   return {
-    type: EDIT_MOVIE_SUCCESS,
+    type: EDIT_MOVIE_ERROR,
   };
 }
 
@@ -174,7 +175,6 @@ export function editMovieSuccess(movie) {
 export function editMovieAction(movie) {
   return (dispatch) => {
     dispatch(editMovieStart());
-
     clientAxios
       .put(`/movies/${movie.id}`, movie)
       .then((res) => {

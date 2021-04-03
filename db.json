@@ -13,10 +13,16 @@
       "id": 7
     },
     {
-      "title": "Mad Max: Fury Road",
+      "title": "Mad Max",
       "url": "https://www.imdb.com/title/tt1392190/",
       "rating": "5",
       "id": 8
+    },
+    {
+      "title": "Karate Kid",
+      "url": "https://karatekid.com",
+      "rating": "1",
+      "id": 9
     }
   ],
   "songs": [
@@ -39,16 +45,10 @@
       "id": 12
     },
     {
-      "title": "Reach put",
+      "title": "Reach for the ladder",
       "url": "https://www.imdb.com/title/tt1375666/",
       "rating": "3",
       "id": 13
-    },
-    {
-      "title": "Fifth Book",
-      "url": "https://google.com",
-      "rating": "1",
-      "id": 14
     }
   ]
 }

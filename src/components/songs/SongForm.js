@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import {
   addSongAction,
   getSongAction,
-
+  editSongAction
 } from 'actions/songsActions';
 
 const SongForm = ({ history, match }) => {
@@ -24,7 +24,7 @@ const SongForm = ({ history, match }) => {
 
   const submitForm = (data) => {
     if (match.params.id) {
-      dispatch(getSongAction({ ...data, id: +match.params.id }));
+      dispatch(editSongAction({ ...data, id: +match.params.id }));
       history.push('/songs');
     } else {
       dispatch(addSongAction(data));

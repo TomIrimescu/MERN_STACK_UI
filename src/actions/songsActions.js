@@ -7,6 +7,9 @@ import {
   DELETE_SONG_ERROR,
   DELETE_SONG_START,
   DELETE_SONG_SUCCESS,
+  EDIT_SONG_ERROR,
+  EDIT_SONG_START,
+  EDIT_SONG_SUCCESS,
   FETCH_SONGS_ERROR,
   FETCH_SONGS_START,
   FETCH_SONGS_SUCCESS,
@@ -150,6 +153,40 @@ export const getSongAction = (id) => {
       .catch((error) => {
         console.log(error);
         dispatch(getSongError());
+      });
+  };
+};
+
+export const editSongStart = () => {
+  return {
+    type: EDIT_SONG_START,
+  };
+};
+
+export const editSongSuccess = (song) => {
+  return {
+    type: EDIT_SONG_SUCCESS,
+    payload: song,
+  };
+};
+
+export const editSongError = () => {
+  return {
+    type: EDIT_SONG_ERROR,
+  };
+};
+
+export const editSongAction = (song) => {
+  return (dispatch) => {
+    dispatch(editSongStart());
+    clientAxios
+      .put(`/songs/${song.id}`, song)
+      .then((res) => {
+        dispatch(editSongSuccess(res.data));
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch(editSongError());
       });
   };
 };
